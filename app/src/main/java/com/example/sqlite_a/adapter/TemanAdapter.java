@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sqlite_a.EditTeman;
+import com.example.sqlite_a.LihatData;
 import com.example.sqlite_a.MainActivity;
 import com.example.sqlite_a.R;
 import com.example.sqlite_a.database.DBController;
@@ -44,7 +45,7 @@ public class TemanAdapter extends RecyclerView.Adapter<TemanAdapter.TemanViewHol
 
     @Override
     public void onBindViewHolder(@NonNull TemanViewHolder holder, int position) {
-        String id,nm,tlp;
+        String id, nm, tlp;
 
         id = listData.get(position).getId();
         nm = listData.get(position).getNama();
@@ -88,10 +89,21 @@ public class TemanAdapter extends RecyclerView.Adapter<TemanAdapter.TemanViewHol
                 return true;
             }
         });
+        holder.cardku.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, LihatData.class);
+                intent.putExtra("id", id);
+                intent.putExtra("nm", nm);
+                intent.putExtra("tlp", tlp);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return (listData != null)?listData.size() : 0;
     }
 
